@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#define INSTRUCTIONS @"Remember: the index starts at 0.  Put in the number, and press \"Add\".  When you have added your numbers, press \"Sort\", then \"Search\".  To start over, press \"Clear\""
+
 @interface ViewController ()
 
 @property (nonatomic, strong) NSMutableArray *searchArray;
@@ -24,10 +26,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.searchArray = [[NSMutableArray alloc] init];
-    self.instructions.text = @"Remember: the index starts at 0.  Put in the number, and press \"Add\".  When you have added your numbers, press \"Sort\", then \"Search\".  To start over, press \"Clear\"";
-    self.output.text = @"";
+    self.output.text = INSTRUCTIONS;
     self.indexField.text = @"";
     self.numField.delegate = self;
+    
+    // This is the block that we use to sort and search.  Since we need to
+    // pass it to both sort and search, we create and save it here.
     self.comp = ^NSInteger(id num1, id num2) {
         int v1 = [num1 intValue];
         int v2 = [num2 intValue];
@@ -54,7 +58,13 @@
     // integerValue returns 0 on error.  So, we don't allow you
     // to enter 0 in the text box.
     NSInteger i = [str integerValue];
-    return [NSNumber numberWithInteger:i];
+    if (i == 0) {
+        self.output.text =
+        [NSString stringWithFormat:@"%@ does not parse as an integer", str];
+        return nil;
+    } else {
+        return [NSNumber numberWithInteger:i];
+    }
 }
 
 - (void)printArray
@@ -94,10 +104,7 @@
 {
     NSString *dirty = self.numField.text;
     NSNumber *num = [self getIntegerFromString:dirty];
-    if ([num integerValue] == 0) {
-        self.output.text =
-        [NSString stringWithFormat:@"%@ does not parse as an integer", dirty];
-    } else {
+    if (num) {
         [self.searchArray addObject:num];
         [self printArray];
     }
@@ -109,10 +116,7 @@
 {
     NSString *dirty = self.numField.text;
     NSNumber *num = [self getIntegerFromString:dirty];
-    if ([num integerValue] == 0) {
-        self.output.text =
-        [NSString stringWithFormat:@"%@ does not parse as an integer", dirty];
-    } else {
+    if (num) {
         NSRange searchRange = NSMakeRange(0, [self.searchArray count]);
         NSInteger index =
             [self.searchArray indexOfObject:num
@@ -129,25 +133,15 @@
 }
 - (IBAction)sortArray:(id)sender
 {
-    [self.searchArray sortUsingComparator:(NSComparator)^(id num1, id num2) {
-        int v1 = [num1 intValue];
-        int v2 = [num2 intValue];
-        if (v1 < v2)
-            return NSOrderedAscending;
-        else if (v1 > v2)
-            return NSOrderedDescending;
-        else
-            return NSOrderedSame;
-    }];
     [self.searchArray sortUsingComparator:self.comp];
-    
     [self printArray];
 }
 
 - (IBAction)clearNumbers:(id)sender
 {
     [self.searchArray removeAllObjects];
-    
+    self.output.text = INSTRUCTIONS;
+
     [self printArray];
 }
 @end

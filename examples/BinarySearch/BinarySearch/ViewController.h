@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *indexField;
 
 @property (weak, nonatomic) IBOutlet UITextView *output;
-@property (weak, nonatomic) IBOutlet UITextView *instructions;
 
 - (IBAction)addNumber:(id)sender;
 - (IBAction)searchNumber:(id)sender;
