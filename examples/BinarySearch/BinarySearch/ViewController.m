@@ -24,8 +24,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.searchArray = [[NSMutableArray alloc] init];
+    self.instructions.text = @"Remember: the index starts at 0.  Put in the number, and press \"Add\".  When you have added your numbers, press \"Sort\", then \"Search\".  To start over, press \"Clear\"";
     self.output.text = @"";
     self.indexField.text = @"";
+    self.numField.delegate = self;
     self.comp = ^NSInteger(id num1, id num2) {
         int v1 = [num1 intValue];
         int v2 = [num2 intValue];
@@ -71,6 +73,22 @@
     
     self.arrayField.text = str;
 }
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+   
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
 
 - (IBAction)addNumber:(id)sender
 {
