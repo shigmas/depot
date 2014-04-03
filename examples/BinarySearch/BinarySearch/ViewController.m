@@ -75,23 +75,16 @@
         NSInteger i = [n integerValue];
         if (first) {
             first = false;
-            [str appendFormat:@"%d", i];
+            [str appendFormat:@"%ld", (long)i];
         } else {
-            [str appendFormat:@", %d", i];
+            [str appendFormat:@", %ld", (long)i];
         }
     }
     
     self.arrayField.text = str;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    
-    return YES;
-   
-}
-
+#pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -99,6 +92,20 @@
     return YES;
 }
 
+///////////////////////////////
+
+
+// we're a view controller, so we get all the touches.  If the touch
+// is not the textField, then dismiss the keyboard
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.numField isFirstResponder] && [touch view] != self.numField) {
+        [self.numField resignFirstResponder];
+    }
+    
+    [super touchesBegan:touches withEvent:event];
+}
 
 - (IBAction)addNumber:(id)sender
 {
@@ -125,9 +132,9 @@
                             usingComparator:self.comp];
         if ((index < 0) || (index > [self.searchArray count])) {
             self.output.text =
-            [NSString stringWithFormat:@"%d was not found", [num integerValue]];
+            [NSString stringWithFormat:@"%ld was not found", (long)[num integerValue]];
         } else {
-            self.indexField.text = [NSString stringWithFormat:@"%d", index];
+            self.indexField.text = [NSString stringWithFormat:@"%ld", (long)index];
         }
     }
 }
