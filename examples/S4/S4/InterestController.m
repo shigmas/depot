@@ -83,7 +83,7 @@
 
 - (IBAction)stepperChanged:(id)sender
 {
-    self.rate.text = [NSString stringWithFormat:@"%f", self.stepper.value];
+    self.rate.text = [NSString stringWithFormat:@"%.2f", self.stepper.value];
     NSNumber *s = [NSNumber numberWithFloat:[self.starting.text floatValue]];
     NSNumber *d = [NSNumber numberWithFloat:[self.desired.text floatValue]];
     [self updateYears:[self findYearsToInterestWithStart:s andEnd:d]];
@@ -97,11 +97,14 @@
     float endBalance = [end floatValue];
     float interestRate = self.stepper.value*0.01;
     int years = 0;
-    
+
     // very minor error checking - just make sure end is greater than start;
     if (startBalance >= endBalance)
         return [NSNumber numberWithInt:years];
-
+    // If 0 interest, it'll take too long!
+    if (interestRate == 0)
+        return @0;
+    
     while ((startBalance + accumulated) < endBalance) {
         years++;
         float yearInterest = (startBalance + accumulated) * interestRate;

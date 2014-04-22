@@ -31,7 +31,7 @@
                       andDiscount:(float)discount
 {
     float sale = [fullPrice floatValue]*discount;
-    self.priceOutput.text = [NSString stringWithFormat:@"%f", sale];
+    self.priceOutput.text = [NSString stringWithFormat:@"%.2f", sale];
     
 }
 
