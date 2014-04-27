@@ -70,8 +70,9 @@
 - (void)setDiscountPercentageFromSlider
 {
     float realVal = self.discountSlider.value;
+    NSInteger intVal = realVal*100.0;
     self.discountLabel.text =
-    [NSString stringWithFormat:@"%f ", realVal*100.0];
+    [NSString stringWithFormat:@"%ld%%", intVal];
 }
 
 - (IBAction)discountChanged:(id)sender
