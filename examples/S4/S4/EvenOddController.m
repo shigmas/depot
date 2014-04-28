@@ -10,10 +10,20 @@
 
 #import <ReactiveCocoa.h>
 
+typedef enum
+{
+    EvenOddModuloMethod,
+    EvenOddBitOperatorMethod,
+} EvenOddMethod;
+
 @interface EvenOddController ()
 
+- (EvenOddMethod)getSelectedMethod;
 - (void)setOutput:(int64_t)num;
+- (BOOL)isEvenModuloMethod:(uint64_t)num;
+- (BOOL)isEvenBitOperatorMethod:(uint64_t)num;
 
+@property (nonatomic) EvenOddMethod method;
 
 @end
 
@@ -28,10 +38,20 @@
     return self;
 }
 
+- (EvenOddMethod)getSelectedMethod
+{
+    if (self.calcControl.selectedSegmentIndex == 0)
+        return EvenOddModuloMethod;
+    else
+        return EvenOddBitOperatorMethod;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    self.method = [self getSelectedMethod];
+    
     self.outputLabel.text = @"No valid number";
     // Do any additional setup after loading the view from its nib.
     [[self.inputField.rac_textSignal
@@ -44,9 +64,33 @@
 
 }
 
+- (BOOL)isEvenModuloMethod:(uint64_t)num
+{
+    return (num % 2 == 0);
+}
+
+- (BOOL)isEvenBitOperatorMethod:(uint64_t)num
+{
+    // Do a bitwise AND operation with 1.  If it is
+    // odd, it will be 1.  If it is even, it will be 0.
+    // For example:
+    // 1 in binary is 0001.
+    // 3 in binary is 0011, 4 is 0100.  For even numbers,
+    // the last bit is 0, for odd, the last bit is 1.
+    return !(num & 1);
+}
+
 - (void)setOutput:(int64_t)num
 {
-    self.outputLabel.text = (num % 2 == 0) ? @"Even" : @"Odd";
+    bool isEven;
+    
+    if (self.method == EvenOddModuloMethod) {
+        isEven = [self isEvenModuloMethod:num];
+    } else {
+        isEven = [self isEvenBitOperatorMethod:num];
+    }
+    
+    self.outputLabel.text = isEven ? @"Even" : @"Odd";
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,4 +123,9 @@
 }
 
 
+- (IBAction)calcMethodChanged:(id)sender
+{
+    self.method = [self getSelectedMethod];
+
+}
 @end

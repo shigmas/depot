@@ -13,6 +13,8 @@
 @interface EvenOddController : UIViewController
 <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *calcControl;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 
+- (IBAction)calcMethodChanged:(id)sender;
 @end
