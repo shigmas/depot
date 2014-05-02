@@ -72,7 +72,7 @@
     float realVal = self.discountSlider.value;
     NSInteger intVal = realVal*100.0;
     self.discountLabel.text =
-    [NSString stringWithFormat:@"%ld%%", intVal];
+    [NSString stringWithFormat:@"%ld%%", (long)intVal];
 }
 
 - (IBAction)discountChanged:(id)sender
