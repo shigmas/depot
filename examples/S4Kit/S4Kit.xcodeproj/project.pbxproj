@@ -76,6 +76,7 @@
 		93B3C4B9194A3FBA00E838F8 /* S4KitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "S4KitTests-Info.plist"; sourceTree = "<group>"; };
 		93B3C4BB194A3FBA00E838F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		93B3C4BD194A3FBA00E838F8 /* S4KitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = S4KitTests.m; sourceTree = "<group>"; };
+		93B3C4D3194A6DAC00E838F8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		93B3C495194A3FBA00E838F8 = {
 			isa = PBXGroup;
 			children = (
+				93B3C4D3194A6DAC00E838F8 /* README.md */,
 				93B3C4A3194A3FBA00E838F8 /* S4Kit */,
 				93B3C4B7194A3FBA00E838F8 /* S4KitTests */,
 				93B3C4A0194A3FBA00E838F8 /* Frameworks */,
