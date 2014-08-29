@@ -32,6 +32,11 @@ void strrev(char *p)
         SWP(*p,*q);
 }
 
+// Adapted from
+// http://stackoverflow.com/questions/198199/how-do-you-reverse-a-string-in-place-in-c-or-c
+// (In place, but quite difficult to parse.
+// K & R's is super simple, and only uses one temporary variable.  But, that doesn't require
+// extra thinking.  (Which makes it better for production code.)
 - (NSString *)reverse
 {
     const char *c = [self.val UTF8String];
