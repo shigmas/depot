@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,20 +14,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uXr-nP-sgk">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uXr-nP-sgk">
                         <rect key="frame" x="8" y="7" width="304" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="_onValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="NXq-Eg-PSz"/>
+                            <action selector="_onValueChanged:" destination="KGk-i7-Jjw" eventType="editingChanged" id="aiB-Nt-oqm"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="uXr-nP-sgk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="HGK-aw-WPs"/>
+                    <constraint firstItem="uXr-nP-sgk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="MBb-K0-tmr"/>
                     <constraint firstAttribute="centerY" secondItem="uXr-nP-sgk" secondAttribute="centerY" id="ynB-Cc-L38"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="_textCell" destination="uXr-nP-sgk" id="IvG-YV-oYb"/>
             </connections>
-            <point key="canvasLocation" x="267" y="142"/>
+            <point key="canvasLocation" x="-278" y="88"/>
         </tableViewCell>
     </objects>
 </document>
