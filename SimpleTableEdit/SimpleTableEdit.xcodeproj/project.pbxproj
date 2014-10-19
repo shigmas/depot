@@ -10,7 +10,7 @@
 		937BDEC519EC57F400BF2767 /* ButtonRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937BDEC419EC57F400BF2767 /* ButtonRowView.swift */; };
 		93C00B8B19E4D8000038FAD4 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C00B8919E4D8000038FAD4 /* TableViewCell.swift */; };
 		93C00B8C19E4D8000038FAD4 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C00B8A19E4D8000038FAD4 /* TableViewCell.xib */; };
-		93DBFC2119EDEA4E006F93A1 /* EditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBFC2019EDEA4E006F93A1 /* EditProtocol.swift */; };
+		93D8834A19F4540100231613 /* EditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D8834919F4540100231613 /* EditProtocol.swift */; };
 		93DBFC2919EEE885006F93A1 /* AccessoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBFC2819EEE885006F93A1 /* AccessoryTableView.swift */; };
 		93DDB24C19E43BDE0055A87E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DDB24B19E43BDE0055A87E /* AppDelegate.swift */; };
 		93DDB24F19E43BDE0055A87E /* SimpleTableEdit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93DDB24D19E43BDE0055A87E /* SimpleTableEdit.xcdatamodeld */; };
@@ -37,7 +37,7 @@
 		937BDEC419EC57F400BF2767 /* ButtonRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonRowView.swift; sourceTree = "<group>"; };
 		93C00B8919E4D8000038FAD4 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		93C00B8A19E4D8000038FAD4 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
-		93DBFC2019EDEA4E006F93A1 /* EditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProtocol.swift; path = ../EditProtocol.swift; sourceTree = "<group>"; };
+		93D8834919F4540100231613 /* EditProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProtocol.swift; sourceTree = "<group>"; };
 		93DBFC2819EEE885006F93A1 /* AccessoryTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryTableView.swift; sourceTree = "<group>"; };
 		93DDB24619E43BDE0055A87E /* SimpleTableEdit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleTableEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93DDB24A19E43BDE0055A87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 				93DDB24B19E43BDE0055A87E /* AppDelegate.swift */,
 				937BDEC419EC57F400BF2767 /* ButtonRowView.swift */,
 				93DDB26E19E43C180055A87E /* DataSource.swift */,
-				93DBFC2019EDEA4E006F93A1 /* EditProtocol.swift */,
+				93D8834919F4540100231613 /* EditProtocol.swift */,
 				93C00B8919E4D8000038FAD4 /* TableViewCell.swift */,
 				93C00B8A19E4D8000038FAD4 /* TableViewCell.xib */,
 				93DDB27019E43C390055A87E /* TableViewDelegate.swift */,
@@ -243,9 +243,9 @@
 				93DDB24F19E43BDE0055A87E /* SimpleTableEdit.xcdatamodeld in Sources */,
 				93C00B8B19E4D8000038FAD4 /* TableViewCell.swift in Sources */,
 				93DBFC2919EEE885006F93A1 /* AccessoryTableView.swift in Sources */,
-				93DBFC2119EDEA4E006F93A1 /* EditProtocol.swift in Sources */,
 				93DDB26F19E43C180055A87E /* DataSource.swift in Sources */,
 				93DDB24C19E43BDE0055A87E /* AppDelegate.swift in Sources */,
+				93D8834A19F4540100231613 /* EditProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
