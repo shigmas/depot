@@ -55,7 +55,7 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func toggleEditMode() {
+    func _toggleEditMode() {
         dataSource.clearEdit()
         tableView.reloadData()
         tableView.setEditing(!tableView.editing, animated: true)
@@ -72,8 +72,8 @@ class TableViewController: UITableViewController {
         var addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNode")
         self.navigationItem.rightBarButtonItem = addButton
         // Set the two items
-        _barButtonItems.append(UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: "toggleEditMode"))
-        _barButtonItems.append(UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "toggleEditMode"))
+        _barButtonItems.append(UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: "_toggleEditMode"))
+        _barButtonItems.append(UIBarButtonItem(title: "Done", style: .Plain, target: self, action: "_toggleEditMode"))
         self.navigationItem.leftBarButtonItem = _barButtonItems[0]
     }
 
