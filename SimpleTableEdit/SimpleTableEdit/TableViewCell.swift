@@ -22,6 +22,9 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
         let edit = _editSource?.inEditMode(index)
         let displayText = _editSource?.getContent(index)
 
+        // XXX - set this from the controller.
+        _textCell.keyboardType = .EmailAddress
+        
         println("Configure \(index) as \(edit)")
         if (edit == true) {
             _textCell.text = displayText
