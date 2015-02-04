@@ -76,12 +76,12 @@ class ButtonRowView: UIView {
     func _getFontToFit(currentFont: UIFont?, height: CGFloat, margin: CGFloat) -> UIFont? {
         if currentFont != nil {
             let maxFontHeight = height - margin * 2
-            var newFont = UIFont(name: currentFont!.fontName, size: 24)
+            var newFont = UIFont(name: currentFont!.fontName, size: 24)!
             // Set the font to be really big, and start shrinking
             
             while newFont.capHeight > maxFontHeight {
                 let newSize = newFont.pointSize - 2
-                newFont = UIFont(name: newFont.fontName, size: newSize)
+                newFont = UIFont(name: newFont.fontName, size: newSize)!
             }
             return newFont
         }
