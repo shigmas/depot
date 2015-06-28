@@ -73,7 +73,7 @@ class XcodeDriver:
                 scheme = projectArgs[self.ProjectTypeKey]
 
         
-        if self.sdk:
+        if self.arch:
             popenArgs = ['xcodebuild',
                          '-project', os.path.expanduser(projDir),
                          '-scheme',  scheme,
@@ -83,7 +83,6 @@ class XcodeDriver:
             popenArgs = ['xcodebuild',
                          '-project', os.path.expanduser(projDir),
                          '-scheme',  scheme,
-                         '-arch',    self.arch,
                          '-sdk',     self.sdk]
         print('XCODE_DRIVER: Running build for %s with args %s' % (projDir,popenArgs))
         result = 0
