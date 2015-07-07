@@ -72,13 +72,27 @@ class XcodeDriver:
             else:
                 scheme = projectArgs[self.ProjectTypeKey]
 
-        
+
+        # Somehow, I wonder if we can do this for local builds:
+        # xcodebuild VALID_ARCHS='x86_64 armv7' ONLY_ACTIVE_ARCH=NO -project ~/src/tree/futomen/core/FFKit/FFKit.xcodeproj -scheme Framework
+        # or
+        # xcodebuild ONLY_ACTIVE_ARCH=NO VALID_ARCHS='armv7 x86_64' -project /Users/wyan/src/tree/futomen/libs/AFNetworking/AFNetworking.xcodeproj -scheme Framework -sdk iphonesimulator8.4
+        # to build for the simulator *and* device.
         if self.arch:
-            popenArgs = ['xcodebuild',
-                         '-project', os.path.expanduser(projDir),
-                         '-scheme',  scheme,
-                         '-arch',    self.arch,
-                         '-sdk',     self.sdk]
+            if len(self.arch) == 1:
+                popenArgs = ['xcodebuild',
+                             '-project', os.path.expanduser(projDir),
+                             '-scheme',  scheme,
+                             '-arch',    self.arch[0],
+                             '-sdk',     self.sdk]
+            else:
+                archs = ' '.join(self.arch)
+                popenArgs = ['xcodebuild',
+                             # no single quotes when running as a script
+                             'VALID_ARCHS=%s' % archs,
+                             'ONLY_ACTIVE_ARCH=NO',
+                             '-project', os.path.expanduser(projDir),
+                             '-scheme',  scheme]
         else:
             popenArgs = ['xcodebuild',
                          '-project', os.path.expanduser(projDir),
@@ -86,6 +100,7 @@ class XcodeDriver:
                          '-sdk',     self.sdk]
         print('XCODE_DRIVER: Running build for %s with args %s' % (projDir,popenArgs))
         result = 0
+
         try:
             result = subprocess.check_call(popenArgs)
         except subprocess.CalledProcessError, e:

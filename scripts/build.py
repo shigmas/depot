@@ -18,24 +18,22 @@
      The sdk that we pass on to the build.  'xcodebuild -showsdks' to see list
 
   -a, --arch
-     The architecture we pass on to the build.  'xcodebuild -showsdks' to see list
+     The architecture we pass on to the build.  This is optional, and omitting it
+     will leave it to the scheme.  Only one architecture can be specified at a
+     time, but the flag can be used multiple times.
 
   -?, --help
      This message
 
 """
 import os, sys
-import getopt
+import getopt, types
 
 # Easiest way to have a config is with a dictionary.  And since python
 # dictionaries are human readable, we just make this python file the config
 # file
 
-DefaultSDK = 'iphonesimulator8.3'
-DefaultArch = 'x86_64'
-
-#DefaultSDK = 'iphoneos8.3'
-#DefaultArch = 'arm7'
+DefaultSDK = 'iphonesimulator8.4'
 
 # Since we generally build one set of these at a time
 FrameworkType = 'Framework'
@@ -141,11 +139,15 @@ def parseArgs(argv):
             elif field == '--sdk' or field == '-s':
                 sdk = val
             elif field == '--arch' or field == '-a':
-                arch = val
-
+                if type(arch) is types.NoneType: 
+                    arch = [val]
+                else:
+                    arch.append(val)
     except ValueError:
         usage('Invalid parameter %s' % field)
         sys.exit()
+
+    print('arch: %s' % arch)
 
     return baseDir, isRelease, sdk, arch
 
@@ -161,8 +163,6 @@ def main(args, stdout, environ):
 
     if sdk is None:
         sdk = DefaultSDK
-    if arch is None:
-        arch = DefaultArch
 
     import XcodeDriver
     print('args to driver: base: %s release: %s, sdk: %s, arch: %s' % (baseDir,
