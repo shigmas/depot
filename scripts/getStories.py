@@ -241,27 +241,46 @@ class EpicParser(ClubhouseClient):
 
         return
 
-def print_list(message, stories):
-    if message is not None:
+    # takes a list of keys and returns a comma-separated string of raw values
+    def __get_story_values(self, story_id,  storyKeys):
+        values = None
+        for key in storyKeys:
+            val = self.__story_data[story_id].get(key)
+            if values is None:
+                values = val
+            else:
+                values = '%s, %s' % (values, val)
+
+        return values
+
+    # Ostensibly, just prints a list. But, we expect the list to contain story ID's
+    def print_list(self, message, stories, storyKeysToPrint):
+        if message is not None:
+            print(message)
+
+        print('[ ', end='')
+        for story_id in stories:
+            values = self.__get_story_values(story_id, storyKeysToPrint)
+            if values is not None:
+                print('%s (%s) ' % (story_id, values), end='')
+            else:
+                print('%s ' % story_id, end='')
+        print(']')
+
+        return
+
+    def print_dict(self, globalVals, key, message, stories, storyKeysToPrint):
         print(message)
 
-    print('[ ', end='')
-    for storyId in stories:
-        print('%s ' % storyId, end='')
-    print(']')
-    return
-
-def print_dict(globalVals, key, message, stories):
-    print(message)
-
-    if key == 'users':
-        for mem_id in stories.keys():
-            val = stories[mem_id]
-            if type(val) is list:
-                print('%s: ' % globalVals.get_mention_name(mem_id), end='')
-                print_list(None, val)
-            else:
-                print('%s: %s' % (globalVals.get_mention_name(mem_id), val))
+        if key == 'users':
+            for mem_id in stories.keys():
+                val = stories[mem_id]
+                if type(val) is list:
+                    print('%s: ' % globalVals.get_mention_name(mem_id), end='')
+                    self.print_list(None, val, storyKeysToPrint)
+                else:
+                    print('%s: %s' % (globalVals.get_mention_name(mem_id), val))
+        return
 
 def get_epics_from_arg(cli_arg):
     try:
@@ -295,6 +314,8 @@ def main():
                         help='Show progress')
     parser.add_argument('--incomplete','-i', action="store_true",
                         help='Filter to show only incomplete stories')
+    parser.add_argument('--keys','-k',
+                        help='Comma separated story keys to print')
     parser.add_argument('epic_ids', #type=int,
                         help='Epic ID (ID or comma separate IDs')
     args = parser.parse_args()
@@ -312,6 +333,10 @@ def main():
     if len(epic_ids) == 0:
         sys.exit(-1)
 
+    storyKeysToPrint = []
+    if args.keys:
+        storyKeysToPrint = args.keys.split(',')
+
     if args.verbose:
         adj = "all"
         if args.incomplete:
@@ -324,16 +349,16 @@ def main():
 
     if args.unassigned:
         unassigned_ids = epicParser.get_unassigned()
-        print_list('Unassigned story ID\'s:', unassigned_ids)
+        epicParser.print_list('Unassigned story ID\'s:', unassigned_ids)
     elif args.multiple_owners:
         multiple_ids = epicParser.get_multiple_owners()
-        print_list('multiple owner story ID\'s:', multiple_ids)
+        epicParser.print_list('multiple owner story ID\'s:', multiple_ids)
     elif args.summary:
         user_est, user_unest, _ = epicParser.get_time_estimates()
-        print_dict(globalVals, 'users', 'User\'s estimated points:',
-                   user_est)
-        print_dict(globalVals, 'users', 'User\'s unestimated stories:',
-                   user_unest)
+        epicParser.print_dict(globalVals, 'users', 'User\'s estimated points:',
+                              user_est, storyKeysToPrint)
+        epicParser.print_dict(globalVals, 'users', 'User\'s unestimated stories:',
+                              user_unest, storyKeysToPrint)
     elif args.user is not None:
         user_id = args.user
         mention_name = ''
@@ -346,11 +371,13 @@ def main():
             user_id = globalVals.get_id_from_mention(mention_name)
         if user_id is not None:
             user_est, user_unest, story_list = epicParser.get_time_estimates(user_id)
-            print_list('%s\'s estimated stories:' % mention_name, story_list)
-            print_dict(globalVals, 'users', 'Users\'s estimated points:',
-                       user_est)
-            print_dict(globalVals, 'users', 'User\'s stories without estimates:',
-                       user_unest)
+            epicParser.print_list('%s\'s estimated stories:' % mention_name, story_list,
+                                  storyKeysToPrint)
+            epicParser.print_dict(globalVals, 'users', 'Users\'s estimated points:',
+                                  user_est, storyKeysToPrint)
+            epicParser.print_dict(globalVals,
+                                  'users', 'User\'s stories without estimates:',
+                                  user_unest, storyKeysToPrint)
 
 if __name__ == '__main__':
     main()
